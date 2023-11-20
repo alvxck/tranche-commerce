@@ -1,5 +1,21 @@
 {
+  "name": "tranche-commerce-backend",
+  "version": "1.0.0",
+  "description": "Tranche Commerce Backend built with Node.js, Express, GraphQL, and TypeScript",
+  "main": "dist/index.js",
+  "scripts": {
+    "tsc": "tsc",
+    "start": "npm run tsc && node ./build/app.js"
+  },
+  "author": "Alexander Carvalho",
+  "dependencies": {
+    "@types/express": "^4.16.1",
+    "express": "^4.16.4",
+    "graphql": "^14.7.0",
+    "graphql-http": "^1.22.0"
+  },
   "devDependencies": {
+    "tslint": "^5.14.0",
     "typescript": "^5.2.2"
   }
 }
