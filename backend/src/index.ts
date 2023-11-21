@@ -1,5 +1,4 @@
 import express, { Request, Response } from 'express';
-import { buildSchema } from 'graphql';
 import { createHandler } from 'graphql-http';
 import cors from 'cors';
 import dotenv from 'dotenv';
@@ -13,6 +12,9 @@ dotenv.config();
 const app = express();
 const port = process.env.port || 3000;
 const allowedOrigins = ["https://localhost:5173"]
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Cors configuration
 app.use(
