@@ -4,14 +4,17 @@
   "description": "Tranche Commerce Backend built with Node.js, Express, GraphQL, and TypeScript",
   "main": "src/index.ts",
   "scripts": {
-    "dev": "nodemon src/index.ts"
+    "dev": "nodemon src/index.ts",
+    "compile": "tsc",
+    "start": "npm run compile && node ./dist/index.js"
   },
   "author": "Alexander Carvalho",
   "dependencies": {
+    "@apollo/server": "^4.9.5",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.16.4",
-    "graphql": "^14.7.0",
+    "graphql": "^16.8.1",
     "graphql-http": "^1.22.0",
     "mongodb": "^6.3.0"
   },
@@ -19,8 +22,9 @@
     "@types/cors": "^2.8.16",
     "@types/express": "^4.16.1",
     "@types/mongodb": "^4.0.7",
+    "@types/node": "^20.10.0",
     "nodemon": "^3.0.1",
     "tslint": "^5.14.0",
-    "typescript": "^5.2.2"
+    "typescript": "^5.3.2"
   }
 }
