@@ -3,10 +3,12 @@ import { createHandler } from 'graphql-http';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import gql from "graphql-tag";
+import morgan from "morgan";
 import { ApolloServer } from '@apollo/server';
 import { buildSubgraphSchema } from '@apollo/subgraph';
 import { expressMiddleware } from '@apollo/server/express4';
-import resolvers from './resolvers';
+import resolvers from './graphql/resolvers';
+import { logger } from './middleware/logger';
 import { readFileSync } from "fs";
 
 dotenv.config();
@@ -18,6 +20,7 @@ const allowedOrigins = ["https://localhost:5173"]
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(morgan("dev"));
 
 // Cors configuration
 app.use(
@@ -47,20 +50,15 @@ const server = new ApolloServer({
 // Start Apollo server
 await server.start();
 
-app.use(expressMiddleware(server));
-
-// Logger
-// app.use();
-
 // Middlewares
-// app.use();
-
-// Routes
-// app.use();
+app.use(
+    logger,
+    expressMiddleware(server)
+);
 
 // Healthcheck
 app.get("/healthcheck", (req: Request, res: Response):void => {
-    res.status(200).send("Server is running. Healthcheck OK.");
+    res.status(200).send("Express server is running...");
 });
 
 // Start server
