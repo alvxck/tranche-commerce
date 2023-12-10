@@ -1,13 +1,13 @@
-import { ApolloServer } from '@apollo/server';
-import { startStandaloneServer } from '@apollo/server/standalone';
-
 import express, { Request, Response } from 'express';
 import { createHandler } from 'graphql-http';
 import cors from 'cors';
 import dotenv from 'dotenv';
-
-import { schema } from './models/schema'
-
+import gql from "graphql-tag";
+import { ApolloServer } from '@apollo/server';
+import { buildSubgraphSchema } from '@apollo/subgraph';
+import { expressMiddleware } from '@apollo/server/express4';
+import resolvers from './resolvers';
+import { readFileSync } from "fs";
 
 dotenv.config();
 
@@ -32,7 +32,22 @@ app.use(
     }),
 );
 
-app.all("/graphql", createHandler({ schema }));
+// GraphQL configuration
+const typeDefs = gql(
+    readFileSync("", {
+        encoding: "utf-8",
+    })
+)
+
+// TODO: Add shxt ton of typeDefs and resolvers from .graphql files
+const server = new ApolloServer({
+    schema: buildSubgraphSchema({ typeDefs, resolvers})
+});
+
+// Start Apollo server
+await server.start();
+
+app.use(expressMiddleware(server));
 
 // Logger
 // app.use();
@@ -51,6 +66,6 @@ app.get("/healthcheck", (req: Request, res: Response):void => {
 // Start server
 const instance = app.listen(port, () => {
     console.log(`Server listening on port ${port}`);
-})
+});
 
 export {app as server, instance};
