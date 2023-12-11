@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 
+// Logging middleware for requests
 export const logger = (
     req: Request,
     res: Response,
