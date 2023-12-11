@@ -1,5 +1,4 @@
 import express, { Request, Response } from 'express';
-import { createHandler } from 'graphql-http';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import gql from "graphql-tag";
@@ -7,23 +6,23 @@ import morgan from "morgan";
 import { ApolloServer } from '@apollo/server';
 import { buildSubgraphSchema } from '@apollo/subgraph';
 import { expressMiddleware } from '@apollo/server/express4';
-import resolvers from './graphql/resolvers';
+import resolvers from './graphql/tranche/tranche.resolver';
 import { logger } from './middleware/logger';
 import { readFileSync } from "fs";
+
+import { auth } from './middleware/auth';
 
 dotenv.config();
 
 // Express configuration
 const app = express();
-const port = process.env.port || 3000;
+const port = process.env.PORT || 3000;
 const allowedOrigins = ["https://localhost:5173"]
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(morgan("dev"));
-
-// Cors configuration
 app.use(
+    express.json(),
+    express.urlencoded({ extended: true }),
+    morgan("dev"),
     cors({
         origin: (origin, callback) => {
             if (!origin || allowedOrigins.includes(origin)) {
@@ -53,6 +52,7 @@ await server.start();
 // Middlewares
 app.use(
     logger,
+    auth,
     expressMiddleware(server)
 );
 

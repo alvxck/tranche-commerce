@@ -1,6 +1,10 @@
 import { Request, Response, NextFunction } from "express";
 import { MissingTokenError, InvalidTokenError } from "../types/errors";
 import jwt, { JwtPayload, Secret } from "jsonwebtoken";
+import dotenv from 'dotenv';
+
+dotenv.config();
+const jwtSecret: Secret = process.env.JWT_SECRET || "";
 
 export const auth = (
     req: Request,
@@ -17,7 +21,7 @@ export const auth = (
         if (!decodedToken) { throw new InvalidTokenError("Invalid authentication token."); }
 
         // Verify token
-        jwt.verify(decodedToken, process.env.JWT_SECRET as Secret) as JwtPayload;
+        jwt.verify(decodedToken, jwtSecret) as JwtPayload;
 
     } catch (e) {
         if (e instanceof MissingTokenError || e instanceof InvalidTokenError) {

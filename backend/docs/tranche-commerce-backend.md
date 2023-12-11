@@ -12,7 +12,7 @@
 
 ## Overview
 
-The Tranche Commerce Backend is a [GraphQL]() API written in [TypeScript](), built on top of [Node]() and [Express](). It is responsible for handling all requests from the frontend, retrieving [Tranche](), [User](), and [Marketplace]() data from a NoSQL database hosted within [MongoDB]().
+The Tranche Commerce Backend is a [GraphQL]() API written in [TypeScript](), built on top of [Node](), [Express](), and [Apollo](). It is responsible for handling all requests from the frontend, retrieving [Tranche](), [User](), and [Marketplace]() data from a NoSQL database hosted within [MongoDB]().
 
 <!-- Diagram -->
 
