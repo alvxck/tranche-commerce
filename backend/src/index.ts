@@ -1,13 +1,13 @@
 import express, { Request, Response } from 'express';
-import cors from 'cors';
-import dotenv from 'dotenv';
-import morgan from 'morgan';
 import { ApolloServer } from '@apollo/server';
 import { buildSubgraphSchema } from '@apollo/subgraph';
 import { expressMiddleware } from '@apollo/server/express4';
-import { typeDefs, resolvers } from './graphql/graphql-config.js';
+import { typeDefs, resolvers } from './graphql/config.js';
 import { logger } from './middleware/logger.js';
 import { auth } from './middleware/auth.js';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import morgan from 'morgan';
 
 
 dotenv.config();

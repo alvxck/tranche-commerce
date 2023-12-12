@@ -1,0 +1,16 @@
+
+type Security {
+    id: ID!,
+    owner: User!,
+    parent_tranch: Tranch!,
+    name: String!,
+    description: String!,
+    quantity: Int!,
+    date_minted: String!,
+}
+
+type Tranch {
+    id: ID!,
+    owner: User!,
+    securities: [Security]!,
+}

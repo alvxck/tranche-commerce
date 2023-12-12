@@ -1,0 +1,22 @@
+
+type User {
+    id: ID!
+    name: String!
+    email: String!
+    password: String!
+    createdAt: String!
+    updatedAt: String!
+}
+
+type Mutation {
+    register(registerInput: RegisterInput): User!
+    login(email: String!, password: String!): User!
+    updateName(name: String!): User!
+    updateEmail(email: String!): User!
+    updatePassword(password: String!): User!
+}
+
+type Query {
+    user(id: ID!): User!,
+    users: [User]
+}
