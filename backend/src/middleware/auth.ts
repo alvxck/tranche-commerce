@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { MissingTokenError, InvalidTokenError } from "../types/errors";
+import { MissingTokenError, InvalidTokenError } from "../types/errors.js";
 import jwt, { JwtPayload, Secret } from "jsonwebtoken";
 import dotenv from 'dotenv';
 

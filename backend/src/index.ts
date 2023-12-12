@@ -1,23 +1,21 @@
 import express, { Request, Response } from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import gql from "graphql-tag";
-import morgan from "morgan";
+import morgan from 'morgan';
 import { ApolloServer } from '@apollo/server';
 import { buildSubgraphSchema } from '@apollo/subgraph';
 import { expressMiddleware } from '@apollo/server/express4';
-import resolvers from './graphql/tranche/tranche.resolver';
-import { logger } from './middleware/logger';
-import { readFileSync } from "fs";
+import { typeDefs, resolvers } from './graphql/graphql-config.js';
+import { logger } from './middleware/logger.js';
+import { auth } from './middleware/auth.js';
 
-import { auth } from './middleware/auth';
 
 dotenv.config();
 
-// Express configuration
+// Express server configuration
 const app = express();
 const port = process.env.PORT || 3000;
-const allowedOrigins = ["https://localhost:5173"]
+const allowedOrigins: string[] = ["https://localhost:5173"];
 
 app.use(
     express.json(),
@@ -34,19 +32,11 @@ app.use(
     }),
 );
 
-// GraphQL configuration
-const typeDefs = gql(
-    readFileSync("", {
-        encoding: "utf-8",
-    })
-)
-
-// TODO: Add shxt ton of typeDefs and resolvers from .graphql files
+// Apollo server configuration
 const server = new ApolloServer({
     schema: buildSubgraphSchema({ typeDefs, resolvers})
 });
 
-// Start Apollo server
 await server.start();
 
 // Middlewares

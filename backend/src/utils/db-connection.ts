@@ -1,5 +1,4 @@
-import { MongoClient, Db } from "mongodb";
-import { DatabaseConnectionError } from "../types/errors";
+import { MongoClient, Db, MongoNotConnectedError } from "mongodb";
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -11,7 +10,7 @@ let client: MongoClient;
 try {
     client = await MongoClient.connect(connectionString);
 } catch (e) {
-    throw new DatabaseConnectionError("Unable to connect to MongoDB client: " + e.message);
+    throw new MongoNotConnectedError("Could not connect to MongoDB.");
 }
 
 let db: Db = client.db(database);

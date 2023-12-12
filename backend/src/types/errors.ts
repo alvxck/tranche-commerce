@@ -16,12 +16,3 @@ export class InvalidTokenError extends Error {
 
     public statusCode = 401;
 }
-
-export class DatabaseConnectionError extends Error {
-    constructor(message: string) {
-        super(message);
-        this.name = "DatabaseConnectionError";
-    }
-
-    public statusCode = 500;
-}
