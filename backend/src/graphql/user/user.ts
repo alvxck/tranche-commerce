@@ -1,7 +1,13 @@
 import { UserDbOperations } from './user-db-operations.js';
+import { readFileSync } from "fs";
+import gql from "graphql-tag";
 
 
-const typeDefs = {};
+const typeDefs = gql(
+    readFileSync("schema.graphql", {
+        encoding: "utf-8",
+    })
+);
 
 const _userDbOperations = new UserDbOperations();
 
